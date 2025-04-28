@@ -1,0 +1,72 @@
+{% extends "main.html" %}
+{% block title %}Criação de candidato{% endblock %}
+{% block ajax %}
+<script>
+    $(document).ready(function () {
+        $("#submit").on('click', function () {
+            $.ajax({
+                url: 'http://localhost:5000/createAction',
+                type: "POST",
+                dataType: 'json',
+                data: $("#form").serialize(),
+                success: function (result) {
+                    alert(result['mensagem']);
+                    $("#form").trigger("reset");
+                },
+                error: function (xhr, resp, text) {
+                    console.log(xhr, resp, text);
+                    alert("houve um erro");
+                }
+            });
+        });
+        $("#clearbtn").on('click', function () {
+            $("#form").trigger("reset");
+        });
+    });
+</script>
+{% endblock %}
+{% block body %}
+<h1>Formulário:</h1>
+<form id="form" action="" method="post">
+    <table border="0">
+        <tbody>
+            <tr>
+                <td class="semestral">Numero:</td>
+                <td><input type="text" name="numero" value="" size="50"/></td>
+            </tr>
+            <tr>
+                <td class="semestral">Comprador:</td>
+                <td><input type="text" name="comprador" value="" size="50"/></td>
+            </tr>
+            <tr>
+                <td class="semestral">Cnpj:</td>
+                <td><input type="text" name="cnpj" value="" size="50"/></td>
+            </tr>
+            <tr>
+                <td class="semestral">Endereco:</td>
+                <td><input type="text" name="endereco" value="" size="50"/></td>
+            </tr>
+            <tr>
+                <td class="semestral">Telefone:</td>
+                <td><input type="text" name="telefone" value="" size="50"/></td>
+            </tr>
+            <tr>
+                <td class="semestral">Data:</td>
+                <td><input type="text" name="data" value="" size="50"/></td>
+            </tr>
+            <tr>
+                <td class="semestral">Valor:</td>
+                <td><input type="text" name="valor" value="" size="50"/></td>
+            </tr>
+            <tr>
+                <td class="semestral">Itens:</td>
+                <td><input type="text" name="itens" value="" size="50"/></td>
+            </tr>
+            <tr>
+                <td><input id="submit" type="button" value="Enviar" /></td>
+                <td><input id="clearbtn" type="button" value="Reset" /></td>
+            </tr>
+        </tbody>
+    </table>
+</form>
+{% endblock %}

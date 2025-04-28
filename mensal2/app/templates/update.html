@@ -1,0 +1,71 @@
+{% extends "main.html" %}
+{% block title %}Alteração de candidato{% endblock %}
+{% block ajax %}
+<script>
+    $(document).ready(function () {
+        $("#submit").on('click', function () {
+            $.ajax({
+                url: 'http://localhost:5000/updateAction',
+                type: "POST",
+                dataType: 'json',
+                data: $("#form").serialize(),
+                success: function (result) {
+                    alert(result['mensagem']);
+                    $("#form input").val("");
+                    $("#descricao").val("");
+                    $("#submit").val("Enviar");
+                },
+                error: function (xhr, resp, text) {
+                    console.log(xhr, resp, text);
+                    alert("houve um erro");
+                }
+            });
+        });
+    });
+</script>
+{% endblock %}
+{% block body %}
+<h1>Formulário:</h1>
+<form id="form" action="" method="post">
+    <table border="0">
+        <tbody>
+            <input type="hidden" name="_id" value="{{notafiscal._id}}"/>
+            <tr>
+                <td class="semestral">Numero:</td>
+                <td><input type="text" name="numero" value="{{notafiscal.numero}}" size="50"/></td>
+            </tr>
+            <tr>
+                <td class="semestral">Comprador:</td>
+                <td><input type="text" name="comprador" value="{{notafiscal.comprador}}" size="50"/></td>
+            </tr>
+            <tr>
+                <td class="semestral">Cnpj:</td>
+                <td><input type="text" name="cnpj" value="{{notafiscal.cnpj}}" size="50"/></td>
+            </tr>
+            <tr>
+                <td class="semestral">Endereco:</td>
+                <td><input type="text" name="endereco" value="{{notafiscal.endereco}}" size="50"/></td>
+            </tr>
+            <tr>
+                <td class="semestral">Telefone:</td>
+                <td><input type="text" name="telefone" value="{{notafiscal.telefone}}" size="50"/></td>
+            </tr>
+            <tr>
+                <td class="semestral">Data:</td>
+                <td><input type="text" name="data" value="{{notafiscal.data}}" size="50"/></td>
+            </tr>
+            <tr>
+                <td class="semestral">Valor:</td>
+                <td><input type="text" name="valor" value="{{notafiscal.valor}}" size="50"/></td>
+            </tr>
+            <tr>
+                <td class="semestral">Itens:</td>
+                <td><input type="text" name="itens" value="{{notafiscal.itens}}" size="50"/></td>
+            </tr>
+            <tr>
+                <td colspan="2"><input id="submit" type="button" value="Enviar" /></td>
+            </tr>
+        </tbody>
+    </table>
+</form>
+{% endblock %}
